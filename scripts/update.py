@@ -289,7 +289,7 @@ def main() -> int:
         or os.environ.get("REPO")
         or DEFAULT_REPO
     )
-    raw_base = f"https://raw.githubusercontent.com/{repo}/main/output"
+    raw_base = f"https://gh-proxy.org/https://raw.githubusercontent.com/{repo}/main/output"
 
     status = {"updated_at": now_str, "repo": repo, "sources": []}
     subscriptions = []
