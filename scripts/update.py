@@ -7,6 +7,7 @@
   1. 读取 config/sources.json 中的配置源列表
   2. 对每个源依次尝试"主线 + 备用"多个地址，自动做中文域名 punycode 转换
   3. 校验返回内容是否为合法的 TVBox/影视仓 单仓配置（包含 sites/spiders/lives 等字段）
+     或 多仓订阅（顶层含 urls 数组）
   4. 将每个源的最新配置保存到 output/<id>.json
   5. 生成多仓订阅文件 output/多仓订阅.json（可直接填进影视仓的"订阅"或"多仓"）
   6. 生成聚合单仓 output/单仓聚合.json（所有源 sites/lives/parses 合并去重）
@@ -35,14 +36,16 @@ DEFAULT_REPO = "YOUR_USERNAME/tvbox-ysc-config"  # 本地运行时的占位仓�
 # 注意：部分接口的反爬会针对"完整 Chrome UA"下发挑战页，反而用简洁 UA 能正常返回 JSON
 USER_AGENT = "Mozilla/5.0"
 
-TIMEOUT = 20  # 单个地址超时（秒）
+TIMEOUT = 15  # 单个地址超时（秒）
 MAX_RETRIES = 2  # 单个地址最大尝试次数（仅对超时/连接类瞬态错误重试）
-RETRY_BACKOFF = 3  # 重试基础等待秒数
-URL_INTERVAL = 1.5  # 每个地址之间的小间隔秒数（降低被限流概率）
-SOURCE_INTERVAL = 3  # 每个源之间的间隔秒数（降低被限流概率）
+RETRY_BACKOFF = 2  # 重试基础等待秒数
+URL_INTERVAL = 1.0  # 每个地址之间的小间隔秒数（降低被限流概率）
+SOURCE_INTERVAL = 2  # 每个源之间的间隔秒数（降低被限流概率）
 
 # 判定"像 TVBox 单仓配置"的顶层字段
 TVBOX_KEYS = ("sites", "spiders", "lives", "store", "exts", "parses", "flags")
+# 多仓订阅格式：顶层为 urls 数组
+MULTI_KEYS = ("urls", "订阅")
 
 
 def _strip_js_comments(text: str) -> str:
@@ -89,10 +92,15 @@ def idn_encode(url: str) -> str:
 
 
 def is_valid_tvbox_config(data) -> bool:
-    """粗略校验：返回内容是否像 TVBox/影视仓 单仓配置。"""
+    """粗略校验：返回内容是否像 TVBox/影视仓 配置（单仓或多仓订阅）。"""
     if not isinstance(data, dict):
         return False
-    return any(key in data for key in TVBOX_KEYS)
+    if any(key in data for key in TVBOX_KEYS):
+        return True
+    # 多仓订阅格式：{"urls": [{"name":..., "url":...}, ...]}
+    if "urls" in data and isinstance(data.get("urls"), list) and data["urls"]:
+        return True
+    return False
 
 
 def _should_retry(err: Exception, resp_text_len: int = -1) -> bool:
@@ -130,7 +138,7 @@ def fetch_config(url: str) -> dict:
             resp.raise_for_status()
             data = parse_json_lenient(resp.text)
             if not is_valid_tvbox_config(data):
-                raise ValueError("返回内容不是 TVBox 配置（缺少 sites/spiders/lives 等字段）")
+                raise ValueError("返回内容不是 TVBox 配置（缺少 sites/spiders/lives 或 urls 字段）")
             return data
         except Exception as e:  # noqa: BLE001
             last_err = e
