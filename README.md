@@ -12,7 +12,20 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-<!-- 此区域由 update.py 每次运行自动覆盖，请勿手动编辑 -->
+> 🔄 最近更新：2026-10-16 18:00:02（北京时间） · 成功 **9/10** 个源
+
+| 配置源 | 状态 | 使用地址 |
+| --- | --- | --- |
+| 肥猫 | ✅ 成功 | `http://肥猫.net/tv` |
+| 饭太硬 | ❌ 失败 | HTTPConnectionPool(host='www.xn--sss604efuw.xyz', port=80... |
+| 王二小 | ✅ 成功 | `https://d.kstore.dev/download/9280/wex.json` |
+| 老刘备 | ✅ 成功 | `https://raw.liucn.cc/box/m.json` |
+| 小马 | ✅ 成功 | `https://szyyds.cn/tv/x.json` |
+| 讴歌 | 📦 缓存 | 上次成功配置（本次更新未抓到，沿用缓存） |
+| 4K小盒子 | ✅ 成功 | `http://xhztv.top/4k.json` |
+| 小盒子单仓 | ✅ 成功 | `http://xhztv.top/xhz` |
+| 拾光多仓 | ✅ 成功 | `http://xmbjm.fh4u.org/dc.txt` |
+| 挺好分享多仓 | ✅ 成功 | `http://ztha.top/TVBox/GYCK.json` |
 <!-- STATUS_END -->
 
 ## 二、仓库结构
