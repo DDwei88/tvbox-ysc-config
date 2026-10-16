@@ -3,7 +3,7 @@
 ![配置状态](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FLightconer%2Ftvbox-ysc-config%2Fmain%2Foutput%2Fshield.json)
 ![更新频率](https://img.shields.io/badge/%E6%9B%B4%E6%96%B0-%E6%AF%8F%E5%A4%A9%202%20%E6%AC%A1-blue)
 
-聚合 **肥猫、饭太硬、王二小、讴歌（欧歌）、摸鱼、OK、小米、巧记、4K小盒子、潇洒** 等多个影视仓 / TVBox 单仓配置，通过 **GitHub Actions 定时自动更新**，并把结果直接提交回本仓库，供影视仓、TVBox、OK影视等软件随时拉取最新接口。
+聚合 **肥猫、饭太硬、王二小、老刘备、小马、讴歌（欧歌）、4K小盒子、小盒子单仓、拾光多仓、挺好分享多仓** 等多个影视仓 / TVBox 单仓配置，通过 **GitHub Actions 定时自动更新**，并把结果直接提交回本仓库，供影视仓、TVBox、OK影视等软件随时拉取最新接口。
 
 > 所有配置均来自互联网公开分享，版权归原作者所有；本仓库仅做聚合与镜像，仅供学习交流，请勿商用。
 
@@ -12,20 +12,7 @@
 ## 一、源可用性状态
 
 <!-- STATUS_START -->
-> 🔄 最近更新：2026-10-16 18:00:02（北京时间） · 成功 **9/10** 个源
-
-| 配置源 | 状态 | 使用地址 |
-| --- | --- | --- |
-| 肥猫 | ✅ 成功 | `http://肥猫.net/tv` |
-| 饭太硬 | ❌ 失败 | HTTPConnectionPool(host='www.xn--sss604efuw.xyz', port=80... |
-| 王二小 | ✅ 成功 | `https://d.kstore.dev/download/9280/wex.json` |
-| 老刘备 | ✅ 成功 | `https://raw.liucn.cc/box/m.json` |
-| 小马 | ✅ 成功 | `https://szyyds.cn/tv/x.json` |
-| 讴歌 | 📦 缓存 | 上次成功配置（本次更新未抓到，沿用缓存） |
-| 4K小盒子 | ✅ 成功 | `http://xhztv.top/4k.json` |
-| 小盒子单仓 | ✅ 成功 | `http://xhztv.top/xhz` |
-| 拾光多仓 | ✅ 成功 | `http://xmbjm.fh4u.org/dc.txt` |
-| 挺好分享多仓 | ✅ 成功 | `http://ztha.top/TVBox/GYCK.json` |
+<!-- 此区域由 update.py 每次运行自动覆盖，请勿手动编辑 -->
 <!-- STATUS_END -->
 
 ## 二、仓库结构
@@ -57,13 +44,13 @@ tvbox-ysc-config/
 | 单仓 · 肥猫 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/feimao.json` | 单独使用某一个源 |
 | 单仓 · 饭太硬 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/fantaiying.json` | |
 | 单仓 · 王二小 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/wangerxiao.json` | |
+| 单仓 · 老刘备 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/laoliubei.json` | |
+| 单仓 · 小马 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/xiaoma.json` | |
 | 单仓 · 讴歌 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/ouge.json` | |
-| 单仓 · 摸鱼 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/moyu.json` | |
-| 单仓 · OK | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/ok.json` | |
-| 单仓 · 小米 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/xiaomi.json` | |
-| 单仓 · 巧记 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/qiaoji.json` | |
 | 单仓 · 4K小盒子 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/4k.json` | |
-| 单仓 · 潇洒 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/xiaosa.json` | |
+| 单仓 · 小盒子单仓 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/xiaohezi.json` | |
+| 单仓 · 拾光多仓 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/shiguang.json` | |
+| 单仓 · 挺好分享多仓 | `https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/tinghao.json` | |
 
 > 多仓订阅与单仓文件里的地址由脚本根据 `GITHUB_REPOSITORY` 环境变量自动生成。若国内直连 raw.githubusercontent.com 慢，可套一层 `ghproxy` / `gh-proxy` 等加速前缀。
 
@@ -107,6 +94,7 @@ REPO=Lightconer/tvbox-ysc-config python scripts/update.py
 - **中文域名自动转 punycode**：`饭太硬.com` → `xn--sss604efuw.com`，避免 DNS 解析失败。
 - **多地址回退**：每个源按顺序尝试主/备用地址，单个地址失败不影响其他源。
 - **智能重试**：仅对超时、连接错误、空响应等瞬态问题退避重试；4xx/5xx 等确定性失败直接跳过。
+- **兼容多仓订阅**：既支持单仓（含 sites 字段），也支持多仓订阅（顶层 urls 数组）格式。
 - **反爬兼容**：使用简洁 UA（部分接口对完整浏览器 UA 下发挑战页），自动剔除 JSON 内嵌的 `//` 注释，兼容未转义控制字符。
 - **聚合单仓**：把所有成功源的 `sites` 按 key 去重合并（重复 key 自动加源前缀），`lives/parses` 等列表合并去重。
 - **状态可视化**：每次更新自动刷新 README 状态表与 shields.io 徽章。
